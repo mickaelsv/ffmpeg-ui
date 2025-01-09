@@ -143,9 +143,37 @@ class FFmpegApp:
                 try:
                     command = (ffmpeg.input(file)
                     .output(output_file,
-                            vcodec='hevc_nvenc',
+                            # vcodec='hevc_nvenc',
+                            vcodec='libx265',
                             preset='medium',    
                             cq=28,
+                            acodec='aac',
+                            audio_bitrate='128k'
+                        )
+                    )
+                    print(f"FFmpeg command: {command}")
+                    command.run()
+                    messagebox.showinfo("Success", f"File converted: {output_file}")
+                except Exception as e:
+                    messagebox.showerror("Error", f"Error processing {file}: {e}")
+
+    # function to convert to HEVC
+    def open_h265_window(self):
+        if not self.selected_files:
+            messagebox.showerror("Error", "No files selected. Please use 'Open files'.")
+            return
+        for file in self.selected_files:
+            if not os.path.exists(file):
+                messagebox.showerror("Error", f"The file does not exist: {file}")
+                continue
+            if file.endswith(".mp4"):
+                output_file = os.path.splitext(file)[0] + "_hevc.mp4"
+                try:
+                    command = (ffmpeg.input(file)
+                    .output(output_file,
+                            vcodec='hevc_nvenc',
+                            preset='medium',    
+                            crf=28,
                             acodec='aac',
                             audio_bitrate='128k'
                         )

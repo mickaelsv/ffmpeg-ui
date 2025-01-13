@@ -22,7 +22,8 @@ class FFmpegApp:
 
         tk.Button(self.menu_frame, text="Open files", command=self.open_files, width=25).pack(pady=5)
         tk.Button(self.menu_frame, text="Clear files", command=self.clear_files, width=25).pack(pady=5)
-        tk.Button(self.menu_frame, text="Re-encode to HEVC/H265", command=self.open_hevc_window, width=25).pack(pady=5)
+        tk.Button(self.menu_frame, text="Re-encode to HEVC CPU", command=self.open_hevc_window, width=25).pack(pady=5)
+        tk.Button(self.menu_frame, text="Re-encode to HEVC GPU", command=self.open_h265_window, width=25).pack(pady=5)
         tk.Button(self.menu_frame, text="Convert MP4 to MP3", command=self.open_mp4_to_mp3_window, width=25).pack(pady=5)
         tk.Button(self.menu_frame, text="Compress MP3", command=self.open_compress_mp3_window, width=25).pack(pady=5)
 

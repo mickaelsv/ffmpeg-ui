@@ -22,8 +22,8 @@ class FFmpegApp:
 
         tk.Button(self.menu_frame, text="Open files", command=self.open_files, width=25).pack(pady=5)
         tk.Button(self.menu_frame, text="Clear files", command=self.clear_files, width=25).pack(pady=5)
-        tk.Button(self.menu_frame, text="Re-encode to HEVC CPU", command=self.open_hevc_window, width=25).pack(pady=5)
-        tk.Button(self.menu_frame, text="Re-encode to HEVC GPU", command=self.open_h265_window, width=25).pack(pady=5)
+        tk.Button(self.menu_frame, text="Re-encode to HEVC CPU", command=self.open_h265_window, width=25).pack(pady=5)
+        tk.Button(self.menu_frame, text="Re-encode to HEVC GPU", command=self.open_hevc_window, width=25).pack(pady=5)
         tk.Button(self.menu_frame, text="Convert MP4 to MP3", command=self.open_mp4_to_mp3_window, width=25).pack(pady=5)
         tk.Button(self.menu_frame, text="Compress MP3", command=self.open_compress_mp3_window, width=25).pack(pady=5)
 
@@ -131,7 +131,7 @@ class FFmpegApp:
                     messagebox.showerror("Error", f"Error processing {file}: {e}")
 
     # function to convert to HEVC
-    def open_hevc_window(self):
+    def open_h265_window(self):
         if not self.selected_files:
             messagebox.showerror("Error", "No files selected. Please use 'Open files'.")
             return
@@ -147,7 +147,7 @@ class FFmpegApp:
                             # vcodec='hevc_nvenc',
                             vcodec='libx265',
                             preset='medium',    
-                            cq=28,
+                            crf=28,
                             acodec='aac',
                             audio_bitrate='128k'
                         )
@@ -159,7 +159,7 @@ class FFmpegApp:
                     messagebox.showerror("Error", f"Error processing {file}: {e}")
 
     # function to convert to HEVC
-    def open_h265_window(self):
+    def open_hevc_window(self):
         if not self.selected_files:
             messagebox.showerror("Error", "No files selected. Please use 'Open files'.")
             return
@@ -173,8 +173,7 @@ class FFmpegApp:
                     command = (ffmpeg.input(file)
                     .output(output_file,
                             vcodec='hevc_nvenc',
-                            preset='medium',    
-                            crf=28,
+                            preset='medium',
                             acodec='aac',
                             audio_bitrate='128k'
                         )
